@@ -5,5 +5,6 @@ public class EGitClassDemo {
 		// TODO Auto-generated method stub
 		System.out.println("Hello EGit");
 		System.out.println("Hello Eclipse");
+		System.out.println("Welcome to eclipse");
 	}
 }
