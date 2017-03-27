@@ -1,9 +1,10 @@
 
-public class Participations {
-	private String ID;
-	private String name;
-	private int age;
-	private String state;
+public abstract class Participations {
+	
+	protected String ID;
+	protected String name;
+	protected int age;
+	protected String state;
 	
 	public Participations (String ID, String name, int age, String state) {
 		this.ID = ID;

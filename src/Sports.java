@@ -1,7 +1,7 @@
 
 public class Sports {
 	
-	private String ID;
+	protected String ID;
 	
 	public Sports (String ID){
 		this.ID = ID;
