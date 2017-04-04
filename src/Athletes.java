@@ -10,10 +10,13 @@ public abstract class Athletes extends Participations {
 		this.totalPoints = totalPoints;
 	}
 	
-	public abstract int compete(int timeRandomGeneration);
+	public abstract int compete();
 	
-	public abstract int getMinTime(int MIN_TIME);
+	public abstract int getMinTime();
 	
-	public abstract int getMaxTime(int MAX_TIME);
+	public abstract int getMaxTime();
+	
+	public abstract String getName();
+	
 	
 }

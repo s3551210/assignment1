@@ -6,28 +6,35 @@ public class SuperAthletes extends Athletes{
 		super(ID, name, age, state, totalPoints);
 	}
 
+//	can compete in all three games.
+	// It will cast all methods from other athletes based on the game
 	@Override
-	public int compete(int timeRandomGeneration) {
+	public int compete() {
 		if (getID() == "S01") {
-			timeRandomGeneration = ThreadLocalRandom.current().nextInt(getMinTime(MIN_TIME), getMaxTime(MAX_TIME) + 1);
+			return ThreadLocalRandom.current().nextInt(getMinTime(), getMaxTime() + 1);
 		} else if (getID() == "C01") {
-			timeRandomGeneration = ThreadLocalRandom.current().nextInt(getMinTime(MIN_TIME), getMaxTime(MAX_TIME) + 1);
+			return ThreadLocalRandom.current().nextInt(getMinTime(), getMaxTime() + 1);
 		} else {
-			timeRandomGeneration = ThreadLocalRandom.current().nextInt(getMinTime(MIN_TIME), getMaxTime(MAX_TIME) + 1);
+			 return ThreadLocalRandom.current().nextInt(getMinTime(), getMaxTime() + 1);
 		}
-		return timeRandomGeneration;
 	}
 
 	@Override
-	public int getMinTime(int MIN_TIME) {
+	public int getMinTime() {
 //		this.MIN_TIME = MIN_TIME;
 		return MIN_TIME;
 	}
 
 	@Override
-	public int getMaxTime(int MAX_TIME) {
+	public int getMaxTime() {
 //		this.MAX_TIME = MAX_TIME;
 		return MAX_TIME;
+	}
+
+	@Override
+	public String getName() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 
