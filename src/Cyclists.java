@@ -9,11 +9,6 @@ public class Cyclists extends Athletes{
 	}
 
 	@Override
-	public int compete() {
-		return ThreadLocalRandom.current().nextInt(getMinTime(), getMaxTime() + 1);
-	}
-
-	@Override
 	public int getMinTime() {
 		this.MIN_TIME = 500;
 		return MIN_TIME;
@@ -24,12 +19,33 @@ public class Cyclists extends Athletes{
 		this.MAX_TIME = 800;
 		return MAX_TIME;
 	}
+	
+	@Override
+	public int compete() {
+		return ThreadLocalRandom.current().nextInt(getMinTime(), getMaxTime() + 1);
+	}
 
 	@Override
-	public String getName() {
-		// TODO Auto-generated method stub
-		return null;
+	public String athleteID() {
+		return this.ID;
 	}
+
+	@Override
+	public String getAthleteName() {
+		return this.name;
+	}
+
+	@Override
+	public int getTotalPoints() {
+		return this.totalPoints;
+	}
+
+	@Override
+	public int setTotalPoints(int points) {
+		this.totalPoints=+points;
+		return this.totalPoints;
+	}
+	
 	
 
 }

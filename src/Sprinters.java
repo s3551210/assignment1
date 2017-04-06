@@ -24,9 +24,26 @@ public class Sprinters extends Athletes{
 	}
 
 	@Override
-	public String getName() {
+	public String athleteID() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public String getAthleteName() {
+		return name;
+	}
+
+	@Override
+	public int getTotalPoints() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int setTotalPoints(int point) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 	
 }

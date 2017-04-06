@@ -39,9 +39,39 @@ public class Swimmers extends Athletes{
 	}
 
 	@Override
-	public String getName() {
+	public String athleteID() {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public String getAthleteName() {
+		return name;
+	}
+
+	@Override
+	public int getTotalPoints() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int setTotalPoints(int point) {
+		this.totalPoints =+ point;
+		// TODO Auto-generated method stub
+		return totalPoints;
+	}
+
+//	@Override
+//	public int getCompete() {
+//		// TODO Auto-generated method stub
+//		return 0;
+//	}
+
+//	@Override
+//	public int setCompete(int time) {
+//		// TODO Auto-generated method stub
+//		return 0;
+//	}
 
 }
