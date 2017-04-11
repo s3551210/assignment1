@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -14,7 +17,9 @@ public class Ozlympic {
 	public int MAX_ATHLETES = 8;
 	public int MIN_ATHLETES = 5;
 	public String gameID;
-	public String userPrediction = null;
+	public static boolean userPrediction = false;
+	public static String userPredictionValue;
+	public static boolean isGameSelected = false;
 
 	static Scanner input = new Scanner(System.in);
 
@@ -34,63 +39,54 @@ public class Ozlympic {
 	public static Swimmers[] swimPlayers = new Swimmers[8];
 	public static Cyclists[] cyclingPlayers = new Cyclists[8];
 	public static Sprinters[] sprinterPlayer = new Sprinters[8];
-//	public static SuperAthletes superPlayer = new SuperAthletes("SUPR01", "Super", 23, "WA", 0);
+	public static Athletes[] SuperAthlete1 = new Swimmers[1];
+	public static Athletes[] SuperAthlete2 = new Cyclists[1];
+	public static Athletes[] SuperAthlete3 = new Sprinters[1];
 
 	public static void createAthletes() {
-		swimPlayers[0] = new Swimmers("SWIM01", "Bell", 21, "VIC", 0);
-		swimPlayers[1] = new Swimmers("SWIM02", "Mick", 24, "ACT", 0);
-		swimPlayers[2] = new Swimmers("SWIM03", "John", 22, "NSW", 0);
-		swimPlayers[3] = new Swimmers("SWIM04", "Robot", 21, "NT", 0);
-		swimPlayers[4] = new Swimmers("SWIM05", "Oliver", 20, "SA", 0);
-		swimPlayers[5] = new Swimmers("SWIM06", "Jack", 23, "QLD", 0);
-		swimPlayers[6] = new Swimmers("SWIM07", "Noah", 20, "TAS", 0);
-		swimPlayers[7] = new Swimmers("SWIM08", "James", 23, "WA", 0);
+		swimPlayers[0] = new Swimmers("SWIM01", "Bell", 21, "VIC", 0, 0);
+		swimPlayers[1] = new Swimmers("SWIM02", "Mick", 24, "ACT", 0, 0);
+		swimPlayers[2] = new Swimmers("SWIM03", "John", 22, "NSW", 0, 0);
+		swimPlayers[3] = new Swimmers("SWIM04", "Robot", 21, "NT", 0, 0);
+		swimPlayers[4] = new Swimmers("SWIM05", "Olivr", 20, "SA", 0, 0);
+		swimPlayers[5] = new Swimmers("SWIM06", "Jack", 23, "QLD", 0, 0);
+		swimPlayers[6] = new Swimmers("SWIM07", "Noah", 20, "TAS", 0, 0);
+		swimPlayers[7] = new Swimmers("SWIM08", "James", 23, "WA", 0, 0);
 
-		cyclingPlayers[0] = new Cyclists("CYCL01", "AA", 19, "NSW", 0);
-		cyclingPlayers[1] = new Cyclists("CYCL02", "BB", 19, "NSW", 0);
-		cyclingPlayers[2] = new Cyclists("CYCL03", "CC", 19, "NSW", 0);
-		cyclingPlayers[3] = new Cyclists("CYCL04", "DD", 19, "NSW", 0);
-		cyclingPlayers[4] = new Cyclists("CYCL05", "EE", 19, "NSW", 0);
-		cyclingPlayers[5] = new Cyclists("CYCL06", "FF", 19, "NSW", 0);
-		cyclingPlayers[6] = new Cyclists("CYCL07", "GG", 19, "NSW", 0);
-		cyclingPlayers[7] = new Cyclists("CYCL08", "HH", 19, "NSW", 0);
+		cyclingPlayers[0] = new Cyclists("CYCL01", "AA", 19, "NSW", 0, 0);
+		cyclingPlayers[1] = new Cyclists("CYCL02", "BB", 19, "NSW", 0, 0);
+		cyclingPlayers[2] = new Cyclists("CYCL03", "CC", 19, "NSW", 0, 0);
+		cyclingPlayers[3] = new Cyclists("CYCL04", "DD", 19, "NSW", 0, 0);
+		cyclingPlayers[4] = new Cyclists("CYCL05", "EE", 19, "NSW", 0, 0);
+		cyclingPlayers[5] = new Cyclists("CYCL06", "FF", 19, "NSW", 0, 0);
+		cyclingPlayers[6] = new Cyclists("CYCL07", "GG", 19, "NSW", 0, 0);
+		cyclingPlayers[7] = new Cyclists("CYCL08", "HH", 19, "NSW", 0, 0);
 
-		sprinterPlayer[0] = new Sprinters("SPRN01", "III", 24, "NT", 0);
-		sprinterPlayer[1] = new Sprinters("SPRN02", "JJJ", 22, "NT", 0);
-		sprinterPlayer[2] = new Sprinters("SPRN03", "KKK", 22, "NT", 0);
-		sprinterPlayer[3] = new Sprinters("SPRN04", "LLL", 22, "NT", 0);
-		sprinterPlayer[4] = new Sprinters("SPRN05", "MMM", 21, "NT", 0);
-		sprinterPlayer[5] = new Sprinters("SPRN06", "NNN", 23, "NT", 0);
-		sprinterPlayer[6] = new Sprinters("SPRN07", "OOO", 23, "NT", 0);
-		sprinterPlayer[7] = new Sprinters("SPRN08", "PPP", 23, "NT", 0);
+		sprinterPlayer[0] = new Sprinters("SPRN01", "III", 24, "NT", 0, 0);
+		sprinterPlayer[1] = new Sprinters("SPRN02", "JJJ", 22, "NT", 0, 0);
+		sprinterPlayer[2] = new Sprinters("SPRN03", "KKK", 22, "NT", 0, 0);
+		sprinterPlayer[3] = new Sprinters("SPRN04", "LLL", 22, "NT", 0, 0);
+		sprinterPlayer[4] = new Sprinters("SPRN05", "MMM", 21, "NT", 0, 0);
+		sprinterPlayer[5] = new Sprinters("SPRN06", "NNN", 23, "NT", 0, 0);
+		sprinterPlayer[6] = new Sprinters("SPRN07", "OOO", 23, "NT", 0, 0);
+		sprinterPlayer[7] = new Sprinters("SPRN08", "PPP", 23, "NT", 0, 0);
+
+		SuperAthlete1[0] = new Swimmers("SWIN11", "Super", 25, "SA", 0, 0);
+		SuperAthlete2[0] = new Cyclists("CYCL11", "Super", 25, "TAS", 0, 0);
+		SuperAthlete3[0] = new Sprinters("SPRN11", "Super", 25, "WA", 0, 0);
 	}
+
+	// Create one referee
+	public static Officials referee = new Officials("REF01", "Ryan", 35, "VIC");
 
 	public static void main(String[] args) {
 
-		// Create one referee
-		Officials referee = new Officials("REF01", "Micheal", 35, "VIC");
 		// referee.calculateFinishingTime(finishingTime);
 
 		// Create 8 players for (Swimmers, Cyclists, Sprinters)
 		createAthletes();
 
-		// swimPlayers[0] = new Swimmers("S01", "Bell", 21, "VIC", 0);
-		// swimPlayers[1] = new Swimmers("S02", "Mick", 24, "NSW", 0);
-		// swimPlayers[2] = new Swimmers("S03", "John", 22, "SYD", 0);
-		// swimPlayers[3] = new Swimmers("S04", "John", 22, "SYD", 0);
-		// swimPlayers[4] = new Swimmers("S05", "John", 22, "SYD", 0);
-
-		// System.out.println(swimPlayers[0].compete());
-		// System.out.println(swimPlayers[1].compete());
-		// System.out.println(swimPlayers[2].compete());
-
-		// swimPlayers[1].compete();
-		// int tt = swimPlayers[2].compete();
-
-		System.out.println();
-
-		// create 1 object for each sport
-
+		// Game Main Menu
 		int option = 0;
 		do {
 			try {
@@ -130,10 +126,19 @@ public class Ozlympic {
 	}
 
 	// Display the points of athletes.(athlete name and his points)
-	// to store the information of games, athletes and user predictions
-	// (Does it need to be in this function?)
 	private static void displayAthletesPoins() {
 		System.out.println("Display Athletes Points");
+		ArrayList<String> athletesArrayList = new ArrayList<String>();
+
+		for (int z = 0; z < swimPlayers.length; z++) {
+			athletesArrayList.add(swimPlayers[z].getID().concat("\t" + swimPlayers[z].getAthleteName()
+					.concat("\t: " + String.valueOf(swimPlayers[z].getTotalPoints()))));
+		}
+
+		for (int i = 0; i < athletesArrayList.size(); i++) {
+			Collections.sort(athletesArrayList);
+			System.out.println(athletesArrayList.get(i));
+		}
 	}
 
 	// Each athlete might have points carried over from the previous games.
@@ -143,7 +148,7 @@ public class Ozlympic {
 	// (Does it need to be in this function?)
 	private static void displayFinalResultOfAllGames() {
 		if (getSelectedGameID() != null) {
-			System.out.println("There is game ");
+			System.out.println("There is game not started yet. Please start the game.");
 		} else {
 			System.out.println("Display Final Result for " + getSelectedGameID());
 			getFinalScore();
@@ -155,7 +160,8 @@ public class Ozlympic {
 		if (isGamePlayed != true) {
 			System.out.println("There is no score");
 		} else {
-			System.out.println("There is");
+			System.out.println("There is score");
+
 			// print Final score
 		}
 
@@ -176,23 +182,74 @@ public class Ozlympic {
 	// to store the information of games, athletes and user predictions (Does it
 	// need to be in this function?)
 	private static void startGame() {
-		Object [] gameObject = new Object [3];
-		gameObject[0] = getSelectedGameID();
-		gameObject[1] = swimPlayers[8].compete();
-		for (int i=0 ; i<swimPlayers.length; i++){
-//			System.out.println(swimPlayers.);
-		}
-		gameObject[2] = new Officials("REFE001", "Noah", 38, "NT");
-		
-		System.out.println("Start Game");
-		if (getSelectedGameID() != null) {
-			System.out.println("The current running game is: " + getSelectedGameID());
-			isGamePlayed = true;
+		System.out.println("**********(   Matching  )**********");
+		if (selectedGameID.isEmpty()) {
+			System.out.println("Game is not selected");
 		} else {
-			System.out.println("No running game. Choose game first:");
-			isGamePlayed = false;
-			selectGame();
+			if (swimPlayers.length < 5 || cyclingPlayers.length<5 || sprinterPlayer.length<5){
+				System.out.println("Game canceled because the players must be more than 4");
+			} else {
+				System.out.println("       ( Game is starting )");
+				System.out.println("___________________________________");
+				runGame(selectedGameID);
+				System.out.println("___________________________________");
+				System.out.println("  (Game ID: " + selectedGameID + " || Referee: " + referee.name +")");
+				
+				resetValues();
+				System.out.println("---------<(  Game Over  )>---------");
+			}
 		}
+		// Add all points to their athletes. ß
+		// if (winner = userPrediction){
+		// System.out.println("Congratulation. Your prediction is correct");
+		// }
+		// Reset: selectedGameID, userPrediction,
+
+		// Object[] gameObject = new Object[3];
+		// gameObject[0] = getSelectedGameID();
+		// gameObject[1] = swimPlayers[8].compete();
+		// for (int i=0 ; i<swimPlayers.length; i++){
+		// System.out.println(swimPlayers.);
+		// }
+		// gameObject[2] = new Officials("REFE001", "Noah", 38, "NT");
+
+		// if (getSelectedGameID() != null) {
+		// System.out.println("Game ID is: " + getSelectedGameID());
+		// isGamePlayed = true;
+		// } else {
+		// System.out.println("There is no game to start. Choose game first:");
+		// isGamePlayed = false;
+		// selectGame();
+		// }
+	}
+
+	private static void runGame(String selectedGameID2) {
+		if (selectedGameID.startsWith("S")) {
+			for (int v = 0; v < swimPlayers.length; v++) {
+				swimPlayers[v].setTimeAchieved(swimPlayers[v].compete());
+				System.out.println(
+						swimPlayers[v].getAthleteName() + "\t: " + swimPlayers[v].getTimeAchieved() + " sec");
+			}
+		} else if (selectedGameID.startsWith("C")) {
+			for (int w = 0; w < cyclingPlayers.length; w++) {
+				cyclingPlayers[w].setTimeAchieved(cyclingPlayers[w].compete());
+				System.out.println(
+						cyclingPlayers[w].getAthleteName() + "\t: " + cyclingPlayers[w].getTimeAchieved() + " sec");
+			}
+		} else {
+			for (int x = 0; x < sprinterPlayer.length; x++) {
+				sprinterPlayer[x].setTimeAchieved(sprinterPlayer[x].compete());
+				System.out.println(
+						sprinterPlayer[x].getAthleteName() + "\t: " + sprinterPlayer[x].getTimeAchieved() + " sec");
+			}
+		}
+	}
+
+	private static void resetValues() {
+		// TODO Auto-generated method stub
+		// isGameSelected = false;
+		userPrediction = false;
+		selectedGameID = null;
 	}
 
 	// A user can predict the winner for each game.
@@ -212,7 +269,7 @@ public class Ozlympic {
 			selectGame();
 		} else {
 			displayAthletes();
-
+			
 		}
 
 		/**
@@ -231,36 +288,122 @@ public class Ozlympic {
 				try {
 					System.out.println();
 					System.out.println("==========(   Athletes  )==========");
-					System.out.println("Who would be the winner? select one:");
+					System.out.println("Guess then enter athlete No:");
 					if (selectedGameID.startsWith("S")) {
-						for (int i = 0; i < swimPlayers.length; i++) {
-							System.out.println(i + 1 + " " + swimPlayers[i].getAthleteName() + "\t " +swimPlayers[i].compete());
-						}
+						printSwimPlayers();
 					} else if (selectedGameID.startsWith("C")) {
-						for (int i = 0; i < cyclingPlayers.length; i++) {
-							System.out.println(i + 1 + " " + cyclingPlayers[i].getAthleteName());
-						}
+						printCyclePlayers();
 					} else {
-						for (int i = 0; i < sprinterPlayer.length; i++) {
-							System.out.println(i + 1 + " " + sprinterPlayer[i].getAthleteName());
-						}
+						printRunPlayer();
 					}
 					System.out.println("9 Cancel");
 					System.out.println("-----------------------------------");
-					System.out.println();
+					userPredictionValue = input.next();
+					if (userPredictionValue.startsWith("9")){
+						option =9;
+						System.out.println("Exit here");
+					} else {
+						// userPredictionValue = option;
+						boolean testBool = storeUserPrediction(userPredictionValue);
+						System.out.println(testBool);
+						option = 9;
+					}
 				} catch (InputMismatchException e) {
 					System.out.println("WARNING");
 					System.out.println("Your entry is not an integer number. Please try again.");
 					input.reset();
 					input.next();
 				}
-			} while (option!=9);
+
+			} while (option != 9);
+
 		} else {
 			System.out.println("First select game then choose your athlete");
 		}
 	}
 
-	public static void getGameID(String gameName) {
+	private static void printRunPlayer() {
+		for (int i = 0; i < sprinterPlayer.length; i++) {
+//			System.out.println(i + 1 + " " + sprinterPlayer[i].getAthleteName());
+			System.out.println(sprinterPlayer[i].getAthleteName());
+		}
+	}
+
+	private static void printCyclePlayers() {
+		for (int i = 0; i < cyclingPlayers.length; i++) {
+//			System.out.println(i + 1 + " " + cyclingPlayers[i].getAthleteName());
+			System.out.println(cyclingPlayers[i].getAthleteName());
+		}
+	}
+
+	private static void printSwimPlayers() {
+		for (int i = 0; i < swimPlayers.length; i++) {
+//			System.out.println(i + 1 + " " + swimPlayers[i].getAthleteName());
+			System.out.println(swimPlayers[i].getAthleteName());
+		}
+	}
+
+	private static boolean storeUserPrediction(String userPredictionValue2) {
+		boolean isAthleteNameAvailable = false;
+		
+		ArrayList<String> items = new ArrayList<String>();
+		for(int mm = 0; mm<swimPlayers.length; mm++){
+			items.add(swimPlayers[mm].getAthleteName().toUpperCase());
+		}
+		
+//		System.out.println(items);
+		if(items.contains(userPredictionValue2.toUpperCase())){
+			isAthleteNameAvailable = true;
+		} else {
+			isAthleteNameAvailable = false;
+		}
+		
+		return isAthleteNameAvailable;
+		
+//		if (isAthleteNameCorrect(swimPlayers, userPredictionValue2)) {
+//			System.out.println("Your predicName is " + userPredictionValue2);
+//		} else {
+//			System.out.println(userPredictionValue2 + " is not available. Try again");
+//		}
+
+		// String predictedAthleteName =
+		// swimPlayers[userPredictionValue-1].getAthleteName();
+		// System.out.println("Your prediction is " + userPredictionValue);
+		// System.out.println("Your predicName is " + predictedAthleteName);
+		//
+		// predictedAthleteName =
+		// cyclingPlayers[userPredictionValue-1].getAthleteName();
+		// System.out.println("Your prediction is " + userPredictionValue);
+		// System.out.println("Your predicName is " + predictedAthleteName);
+		//
+		// predictedAthleteName =
+		// sprinterPlayer[userPredictionValue-1].getAthleteName();
+		// System.out.println("Your prediction is " + userPredictionValue);
+		// System.out.println("Your predicName is " + predictedAthleteName);
+		// System.out.println(isAthleteNameCorrect(swimPlayers,
+		// predictedAthleteName));
+	}
+
+	public static boolean isAthleteNameCorrect(Swimmers[] swimPlayers2, int userPredictionValue2) {
+		boolean athleteNameIndex = false;
+//		for (int i = 0; i < swimPlayers2.length; i++) {
+//			if (swimPlayers2[i].getAthleteName() == userPredictionValue2) {
+//				athleteNameIndex = true;
+//				// break;
+//			}
+//		}
+		return athleteNameIndex;
+	}
+	// public String find(Athletes [] array, int value) {
+	// String athletName;
+	// for(int i=0; i<array.length; i++)
+	// if(array[i] == value){
+	// athletName = array[i].getAthleteName();
+	// }
+	// return athletName;
+	// }
+
+	public static void createGameID(String gameName) {
 		// String selectedGameID;
 		if (gameName == "Swimming") {
 			selectedGameID = "S" + swimmingGameCount.incrementAndGet();
@@ -279,45 +422,60 @@ public class Ozlympic {
 		return selectedGameID;
 	}
 
-	private static void selectGame() {
-		boolean isGameselected = false;
+	// create game ID for each sport
+	public static boolean selectGame() {
+
+		// String selectedGame = null;
 		int option = 0;
 		do {
 			try {
-				displayGameMenu();
-				option = input.nextInt();
-				switch (option) {
-				case 1:
-					getGameID("Swimming");
-					isGameselected = true;
-					break;
-				case 2:
-					// create Cycling game
-					getGameID("Cycling");
-					isGameselected = true;
-					break;
-				case 3:
-					// Create Running game
-					getGameID("Running");
-					isGameselected = true;
-					break;
-				case 4:
-					isGameselected = true;
-					break;
-				default:
-					System.out.println("WARNING");
-					System.out.println("Invalid input. Please select a number from 1 - 4");
+				if (selectedGameID != null) {
+					System.out.println("You already have chosen game ID");
+					option = 4;
+				} else {
+					displayGamesMenu();
+					option = input.nextInt();
+					switch (option) {
+					case 1:
+						createGameID("Swimming");
+						// isGameSelected = true;
+						// selectedGame= "Swimming";
+						return true;
+					case 2:
+						// create Cycling game
+						createGameID("Cycling");
+						// isGameSelected = true;
+						// selectedGame="Cycling";
+						return true;
+					case 3:
+						// Create Running game
+						createGameID("Running");
+						// isGameSelected = true;
+						// selectedGame="Running";
+						return true;
+					case 4:
+						break;
+					default:
+						System.out.println("WARNING");
+						System.out.println("Invalid input. Please select a number from 1 - 4");
+					}
 				}
+
 			} catch (InputMismatchException e) {
 				System.out.println("WARNING");
 				System.out.println("Your entry is not an integer number. Please try again.");
 				input.reset();
 				input.next();
 			}
-		} while (!isGameselected);
+			if (isGameSelected) {
+				option = 4;
+			}
+		} while (option != 4);
+		return isGameSelected;
 	}
 
-	public static void displayGameMenu() {
+	// Display Sports
+	public static void displayGamesMenu() {
 		System.out.println();
 		System.out.println("==========(    Games    )==========");
 		System.out.println("Choose a game number to run:");
@@ -326,6 +484,5 @@ public class Ozlympic {
 		System.out.println("3- Running");
 		System.out.println("4- Cancel");
 		System.out.println("-----------------------------------");
-		System.out.println();
 	}
 }

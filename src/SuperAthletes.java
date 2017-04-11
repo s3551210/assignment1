@@ -2,8 +2,8 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class SuperAthletes extends Athletes{
 
-	public SuperAthletes(String ID, String name, int age, String state, int totalPoints) {
-		super(ID, name, age, state, totalPoints);
+	public SuperAthletes(String ID, String name, int age, String state, int totalPoints, int timeAchieved) {
+		super(ID, name, age, state, totalPoints, timeAchieved);
 	}
 
 //	can compete in all three games.
@@ -53,6 +53,18 @@ public class SuperAthletes extends Athletes{
 	public int setTotalPoints(int point) {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	@Override
+	public int getTimeAchieved() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public void setTimeAchieved(int timeAchieved) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

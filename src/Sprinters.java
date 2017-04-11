@@ -2,8 +2,8 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class Sprinters extends Athletes{
 
-	public Sprinters(String ID, String name, int age, String state, int totalPoints) {
-		super(ID, name, age, state, totalPoints);
+	public Sprinters(String ID, String name, int age, String state, int totalPoints, int timeAchieved) {
+		super(ID, name, age, state, totalPoints, timeAchieved);
 	}
 	
 	@Override
@@ -26,7 +26,7 @@ public class Sprinters extends Athletes{
 	@Override
 	public String athleteID() {
 		// TODO Auto-generated method stub
-		return null;
+		return ID;
 	}
 
 	@Override
@@ -36,14 +36,23 @@ public class Sprinters extends Athletes{
 
 	@Override
 	public int getTotalPoints() {
-		// TODO Auto-generated method stub
-		return 0;
+		return totalPoints;
 	}
 
 	@Override
 	public int setTotalPoints(int point) {
-		// TODO Auto-generated method stub
-		return 0;
+		this.totalPoints =+ point;
+		return totalPoints;
+	}
+
+	@Override
+	public int getTimeAchieved() {
+		return timeAchieved;
+	}
+
+	@Override
+	public void setTimeAchieved(int timeAchieved) {
+		this.timeAchieved = timeAchieved;
 	}
 	
 }

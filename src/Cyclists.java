@@ -4,8 +4,8 @@ public class Cyclists extends Athletes{
 	
 	
 
-	public Cyclists(String ID, String name, int age, String state, int totalPoints) {
-		super(ID, name, age, state, totalPoints);
+public Cyclists(String ID, String name, int age, String state, int totalPoints, int timeAchieved) {
+		super(ID, name, age, state, totalPoints, timeAchieved);
 	}
 
 	@Override
@@ -45,7 +45,14 @@ public class Cyclists extends Athletes{
 		this.totalPoints=+points;
 		return this.totalPoints;
 	}
-	
-	
 
+	@Override
+	public int getTimeAchieved() {
+		return timeAchieved;
+	}
+
+	@Override
+	public void setTimeAchieved(int timeAchieved) {
+		this.timeAchieved = timeAchieved;
+	}
 }

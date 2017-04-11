@@ -5,8 +5,8 @@ public class Swimmers extends Athletes{
 	
 	Random rand = new Random();
 
-	public Swimmers(String ID, String name, int age, String state, int totalPoints) {
-		super(ID, name, age, state, totalPoints);
+	public Swimmers(String ID, String name, int age, String state, int totalPoints, int timeAchieved) {
+		super(ID, name, age, state, totalPoints, timeAchieved);
 	}
 	
 	// time randomly generate, 
@@ -40,8 +40,7 @@ public class Swimmers extends Athletes{
 
 	@Override
 	public String athleteID() {
-		// TODO Auto-generated method stub
-		return null;
+		return ID;
 	}
 
 	@Override
@@ -51,15 +50,23 @@ public class Swimmers extends Athletes{
 
 	@Override
 	public int getTotalPoints() {
-		// TODO Auto-generated method stub
-		return 0;
+		return totalPoints;
 	}
 
 	@Override
 	public int setTotalPoints(int point) {
 		this.totalPoints =+ point;
-		// TODO Auto-generated method stub
 		return totalPoints;
+	}
+
+	@Override
+	public int getTimeAchieved() {
+		return timeAchieved;
+	}
+
+	@Override
+	public void setTimeAchieved(int timeAchieved) {
+		this.timeAchieved = timeAchieved;
 	}
 
 //	@Override
