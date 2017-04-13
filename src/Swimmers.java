@@ -55,7 +55,7 @@ public class Swimmers extends Athletes{
 
 	@Override
 	public int setTotalPoints(int point) {
-		this.totalPoints =+ point;
+		totalPoints =getTotalPoints()+ point;
 		return totalPoints;
 	}
 

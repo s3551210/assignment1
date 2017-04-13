@@ -1,11 +1,11 @@
 import java.util.concurrent.ThreadLocalRandom;
 
-public class Sprinters extends Athletes{
+public class Sprinters extends Athletes {
 
 	public Sprinters(String ID, String name, int age, String state, int totalPoints, int timeAchieved) {
 		super(ID, name, age, state, totalPoints, timeAchieved);
 	}
-	
+
 	@Override
 	public int compete() {
 		return ThreadLocalRandom.current().nextInt(getMinTime(), getMaxTime() + 1);
@@ -13,19 +13,18 @@ public class Sprinters extends Athletes{
 
 	@Override
 	public int getMinTime() {
-		this.MIN_TIME = 10;
+		MIN_TIME = 10;
 		return MIN_TIME;
 	}
 
 	@Override
 	public int getMaxTime() {
-		this.MAX_TIME = 20;
+		MAX_TIME = 20;
 		return MAX_TIME;
 	}
 
 	@Override
 	public String athleteID() {
-		// TODO Auto-generated method stub
 		return ID;
 	}
 
@@ -41,7 +40,7 @@ public class Sprinters extends Athletes{
 
 	@Override
 	public int setTotalPoints(int point) {
-		this.totalPoints =+ point;
+		totalPoints = getTotalPoints()+point;
 		return totalPoints;
 	}
 
@@ -54,5 +53,5 @@ public class Sprinters extends Athletes{
 	public void setTimeAchieved(int timeAchieved) {
 		this.timeAchieved = timeAchieved;
 	}
-	
+
 }

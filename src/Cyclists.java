@@ -41,8 +41,8 @@ public Cyclists(String ID, String name, int age, String state, int totalPoints, 
 	}
 
 	@Override
-	public int setTotalPoints(int points) {
-		this.totalPoints=+points;
+	public int setTotalPoints(int point) {
+		totalPoints = getTotalPoints() + point;
 		return this.totalPoints;
 	}
 
