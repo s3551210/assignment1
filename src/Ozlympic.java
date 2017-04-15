@@ -3,6 +3,9 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.concurrent.atomic.AtomicInteger;
 
+/**
+ * This class provides all game functions and display results.
+ */
 public class Ozlympic {
 	public static boolean isGamePlayed = false;
 	private static final AtomicInteger swimmingGameCount = new AtomicInteger(0);
@@ -274,12 +277,15 @@ public class Ozlympic {
 	private static void checkUserPrediction(String athleteName) {
 		// TODO
 		String firstWinner = athleteName.toUpperCase();
-		boolean userPrediction = new String(firstWinner).equals(userPredictionValue.toUpperCase());
-		if (userPrediction) {
-			System.out.println("Congratulations You got the right winner");
-			System.out.println("------<(  Congratulations  )>------");
-			System.out.println("----<( Your guessing correct )>----");
+		if (userPredictionValue != null) {
+			boolean userPrediction = new String(firstWinner).equals(userPredictionValue.toUpperCase());
+			if (userPrediction) {
+				System.out.println("Congratulations You got the right winner");
+				System.out.println("------<(  Congratulations  )>------");
+				System.out.println("----<( Your guessing correct )>----");
+			}
 		}
+
 	}
 
 	public static void arraySort(Athletes[] game) {
