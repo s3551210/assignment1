@@ -4,7 +4,7 @@ import java.util.Scanner;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class Ozlympic {
-	public static boolean isGamePlayed =false;
+	public static boolean isGamePlayed = false;
 	private static final AtomicInteger swimmingGameCount = new AtomicInteger(0);
 	private static final AtomicInteger cyclingGameCount = new AtomicInteger(0);
 	private static final AtomicInteger runningGameCount = new AtomicInteger(0);
@@ -18,7 +18,6 @@ public class Ozlympic {
 	public static boolean userPrediction = false;
 	public static String userPredictionValue;
 	public static boolean isGameSelected = false;
-	
 
 	static Scanner input = new Scanner(System.in);
 
@@ -89,7 +88,7 @@ public class Ozlympic {
 		SuperAthlete1[0] = new Swimmers("SWIN11", "Super", 25, "SA", 0, 0);
 		SuperAthlete2[0] = new Cyclists("CYCL11", "Super", 25, "TAS", 0, 0);
 		SuperAthlete3[0] = new Sprinters("SPRN11", "Super", 25, "WA", 0, 0);
-		
+
 		// Create one referee
 		referee = new Officials("REF01", "Ryan Grant", 36, "NT");
 
@@ -100,7 +99,7 @@ public class Ozlympic {
 		// Create 8 players for (Swimmers, Cyclists, Sprinters)
 		createAthletes();
 
-		//TODO Game Main Menu
+		// TODO Game Main Menu
 		int option = 0;
 		do {
 			try {
@@ -141,78 +140,78 @@ public class Ozlympic {
 
 	// Display the points of athletes.(athlete name and his points)
 	private static void displayAthletesPoins() {
-		if (isGamePlayed){
+		if (isGamePlayed) {
 			System.out.println("*****(Display Athletes Points)*****");
-			athletesArrayList.add("-----------------------------------");
-			printAthletesArrayList();
+			printAthletesPoints(swimPlayers);
+			printAthletesPoints(cyclingPlayers);
+			printAthletesPoints(sprinterPlayer);
 			isGamePlayed = false;
 		} else {
 			System.out.println("----------<(  WARNING  )>----------");
-			System.out.println("There is no running game yet");
+			System.out.println("There is no game has been started");
 		}
-		
+
+	}
+
+	private static void printAthletesPoints(Athletes[] athletesPoints) {
+		// TODO Auto-generated method stub
+		sortAthleteDescending(athletesPoints);
+		int checkTotalPoint = 0;
+		for (int f = 0; f < athletesPoints.length; f++) {
+			checkTotalPoint += athletesPoints[f].getTotalPoints();
+		}
+
+		if (checkTotalPoint != 0) {
+			for (int e = 0; e < athletesPoints.length; e++) {
+				System.out.println(athletesPoints[e].getAthleteName() + "\t" + athletesPoints[e].getTotalPoints());
+			}
+			System.out.println("-----------------------------------");
+		}
+
 	}
 
 	private static void addToAthletesArrayList(Athletes[] athleteArrayList) {
-		for (int z = 0; z < athleteArrayList.length; z++) { 
-			athletesArrayList.add(athleteArrayList[z].getID().concat("\t" 
-					+ athleteArrayList[z].getAthleteName().concat("\t: " 
-					+ String.valueOf(athleteArrayList[z].getTotalPoints()))));
+		for (int z = 0; z < athleteArrayList.length; z++) {
+			athletesArrayList.add(athleteArrayList[z].getID().concat("\t" + athleteArrayList[z].getAthleteName()
+					.concat("\t: " + String.valueOf(athleteArrayList[z].getTotalPoints()).concat(" Points"))));
 		}
 	}
-	
-	private static void printAthletesArrayList() {
+
+	private static void printGameResultArrayList() {
 		for (int i = 0; i < athletesArrayList.size(); i++) {
 			System.out.println(athletesArrayList.get(i));
 		}
 	}
 
-//	TODO
-	// Each athlete might have points carried over from the previous games.
+	// TODO
 	// Display the final result of all games including the name of the referee
-	// for each game (getRefereeName())
-	// to store the information of games, athletes and user predictions
-	// (Does it need to be in this function?)
 	private static void displayFinalResultOfAllGames() {
 		if (getSelectedGameID() != null) {
 			System.out.println("----------<(  WARNING  )>----------");
 			System.out.println("There is game not started yet. Please start it.");
 		} else {
-			if(getFinalScore(selectedGameID, isGamePlayed) != true){
+			if (getFinalScore(selectedGameID, isGamePlayed) != true) {
 				System.out.println("----------<(  WARNING  )>----------");
 				System.out.println("No score at the moment");
 			} else {
 				System.out.println("=======(Display Final Result)======");
-				System.out.println("==========(Game ID : " +getSelectedGameID()+ ")==========");
-				getFinalScore(selectedGameID, isGamePlayed);
+				printGameResultArrayList();
 			}
-			
 		}
-
 	}
 
-	//TODO
 	private static boolean getFinalScore(String str, boolean bool) {
 		if (isGamePlayed != true) {
-			bool=false;
+			bool = false;
 		} else {
-			// print Final score
-			bool=true;
+			bool = true;
 		}
 		return bool;
 	}
 
-//	TODO
-	// (one sport) + (one referee) + (5 - 8 athletes)
-	// game will be cancelled unless there are more than 4 participants
-	// However when a game is run again, the user prediction of that game should
-	// be reset.(repeated in predictWinner())
-	// Start the game and award points to top 3 athletes according to their
-	// finishing time (Referee will be called from this method)
-	// to store the information of games, athletes and user predictions (Does it
-	// need to be in this function?)
+	// TODO 3
 	private static void startGame() {
-		
+
 		if (getSelectedGameID() == null) {
 			System.out.println("----------<(  WARNING  )>----------");
 			System.out.println("There is no game selected");
@@ -225,77 +224,76 @@ public class Ozlympic {
 				System.out.println("       ( Game is starting )");
 				System.out.println("___________________________________");
 				runGame(selectedGameID);
+
 				System.out.println("___________________________________");
 				System.out.println("(Game ID: " + selectedGameID + " || Referee: " + referee.name + ")");
 				resetValues();
 				System.out.println("---------<(  Game Over  )>---------");
 			}
 		}
-		// Add all points to their athletes. ß
-		// if (winner = userPrediction){
-		// System.out.println("Congratulation. Your prediction is correct");
-		// }
-		// Reset: selectedGameID, userPrediction,
 
 	}
 
-//	TODO
-	private static boolean runGame(String selectedGameID2) {
+	private static void runGame(String selectedGameID2) {
 		if (selectedGameID2.startsWith("S")) {
 			athleteCompete(swimPlayers);
-			arraySort(swimPlayers);
-			swimPlayers[0].setTotalPoints(5);
-			swimPlayers[1].setTotalPoints(2);
-			swimPlayers[2].setTotalPoints(1);
-			for(int q = 0; q<swimPlayers.length; q++){
-				System.out.println(swimPlayers[q].name+"\t "+swimPlayers[q].timeAchieved +" "+swimPlayers[q].totalPoints);
-			}
-			addToAthletesArrayList(swimPlayers);
-			athletesArrayList.add("Referee: "+referee.name);
 
 		} else if (selectedGameID2.startsWith("C")) {
 			athleteCompete(cyclingPlayers);
-			arraySort(cyclingPlayers);
-			cyclingPlayers[0].setTotalPoints(5);
-			cyclingPlayers[1].setTotalPoints(2);
-			cyclingPlayers[2].setTotalPoints(1);
-			for(int q = 0; q<cyclingPlayers.length; q++){
-				System.out.println(cyclingPlayers[q].name+"\t "+cyclingPlayers[q].timeAchieved +" "+cyclingPlayers[q].totalPoints);
-			}
-			addToAthletesArrayList(cyclingPlayers);
-			athletesArrayList.add("Referee: "+referee.name);
-		
+
 		} else {
 			athleteCompete(sprinterPlayer);
-			arraySort(sprinterPlayer);
-			
-			sprinterPlayer[0].setTotalPoints(5);
-			sprinterPlayer[1].setTotalPoints(2);
-			sprinterPlayer[2].setTotalPoints(1);
-			for(int q = 0; q<sprinterPlayer.length; q++){
-				System.out.println(sprinterPlayer[q].name+"\t "+sprinterPlayer[q].timeAchieved +" "+sprinterPlayer[q].totalPoints);
-			}
-			
-			addToAthletesArrayList(sprinterPlayer);
-			athletesArrayList.add("Referee: "+referee.name);
 		}
 		isGamePlayed = true;
-		
-		return true; 
+
 	}
 
-	public static void arraySort(Athletes [] game) {
+	private static void displayAthletesArrangement(Athletes[] athleteName) {
+		athleteName[0].setTotalPoints(5);
+		athleteName[1].setTotalPoints(2);
+		athleteName[2].setTotalPoints(1);
+
+		for (int x = 0; x < athleteName.length; x++) {
+			if (x == 0) {
+				checkUserPrediction(athleteName[x].getAthleteName());
+				System.out.println(athleteName[x].getAthleteName() + "\t" + athleteName[x].getTimeAchieved() + " sec\t"
+						+ "5" + " Ponits");
+			} else if (x == 1) {
+				System.out.println(athleteName[x].getAthleteName() + "\t" + athleteName[x].getTimeAchieved() + " sec\t"
+						+ "2" + " Ponits");
+			} else if (x == 2) {
+				System.out.println(athleteName[x].getAthleteName() + "\t" + athleteName[x].getTimeAchieved() + " sec\t"
+						+ "1" + " Ponit");
+			} else
+				System.out.println(athleteName[x].getAthleteName() + "\t" + athleteName[x].getTimeAchieved() + " sec\t"
+						+ "0" + " Ponit");
+		}
+
+	}
+
+	private static void checkUserPrediction(String athleteName) {
+		// TODO
+		String firstWinner = athleteName.toUpperCase();
+		boolean userPrediction = new String(firstWinner).equals(userPredictionValue.toUpperCase());
+		if (userPrediction) {
+			System.out.println("Congratulations You got the right winner");
+			System.out.println("------<(  Congratulations  )>------");
+			System.out.println("----<( Your guessing correct )>----");
+		}
+	}
+
+	public static void arraySort(Athletes[] game) {
 		boolean swapped = true;
 		int j = 0;
-		Athletes[] tempArr = new Athletes[1];
+		Athletes[] tempArray = new Athletes[1];
 		while (swapped) {
 			swapped = false;
 			j++;
 			for (int i = 0; i < game.length - j; i++) {
 				if (game[i].timeAchieved > game[i + 1].timeAchieved) {
-					tempArr[0] = game[i];
+					tempArray[0] = game[i];
 					game[i] = game[i + 1];
-					game[i + 1] = tempArr[0];
+					game[i + 1] = tempArray[0];
 					swapped = true;
 				}
 			}
@@ -305,9 +303,36 @@ public class Ozlympic {
 	private static void athleteCompete(Athletes[] athlete) {
 		for (int x = 0; x < athlete.length; x++) {
 			athlete[x].setTimeAchieved(athlete[x].compete());
-			System.out.println(athlete[x].getAthleteName() + "\t: " 
-			+ athlete[x].getTimeAchieved() + " sec");
 		}
+		arraySort(athlete);
+		displayAthletesArrangement(athlete);
+		sortAthletesBasedOnPoints(athlete);
+	}
+
+	private static void sortAthletesBasedOnPoints(Athletes[] athletesPoints) {
+		sortAthleteDescending(athletesPoints);
+		addToAthletesArrayList(athletesPoints);
+		athletesArrayList.add("Referee: " + referee.name);
+		athletesArrayList.add("-----------------------------------");
+	}
+
+	private static void sortAthleteDescending(Athletes[] athletesPoints) {
+		boolean swapped = true;
+		int j = 0;
+		Athletes[] tempArray = new Athletes[1];
+		while (swapped) {
+			swapped = false;
+			j++;
+			for (int i = 0; i < athletesPoints.length - j; i++) {
+				if (athletesPoints[i].getTotalPoints() < athletesPoints[i + 1].getTotalPoints()) {
+					tempArray[0] = athletesPoints[i];
+					athletesPoints[i] = athletesPoints[i + 1];
+					athletesPoints[i + 1] = tempArray[0];
+					swapped = true;
+				}
+			}
+		}
+
 	}
 
 	private static void resetValues() {
@@ -315,16 +340,7 @@ public class Ozlympic {
 		selectedGameID = null;
 	}
 
-	//	TODO
-	// A user can predict the winner for each game.
-	// Allow the user to predict the winner of that game
-	// User’s prediction is limited to only one athlete in one game.
-	// If the prediction is correct, then a congratulation message will be
-	// generated
-	// However when a game is run again, the user prediction of that game should
-	// be reset.
-	// to store the information of games, athletes and user predictions (Does it
-	// need to be in this function?)
+	// TODO
 	private static void predictWinner() {
 		// check selected game first to display its athletes
 		if (selectedGameID == null) {
@@ -363,7 +379,7 @@ public class Ozlympic {
 		}
 	}
 
-//	TODO
+	// TODO
 	// Display athletes
 	private static void displayAthletes() {
 		System.out.println();
@@ -386,17 +402,17 @@ public class Ozlympic {
 		}
 	}
 
-//	TODO
+	// TODO
 	private static boolean storeUserPrediction(String userPredictionValue2) {
 		boolean isAthleteNameAvailable = false;
 		ArrayList<String> items = new ArrayList<String>();
 
 		if (selectedGameID.startsWith("S")) {
-			copySwimPlayers(items);
+			copySprnPlayers(items, swimPlayers);
 		} else if (selectedGameID.startsWith("C")) {
-			copyCyclPlayers(items);
+			copySprnPlayers(items, cyclingPlayers);
 		} else {
-			copySprnPlayers(items);
+			copySprnPlayers(items, sprinterPlayer);
 		}
 
 		if (items.contains(userPredictionValue2.toUpperCase())) {
@@ -409,29 +425,14 @@ public class Ozlympic {
 		return isAthleteNameAvailable;
 	}
 
-	private static ArrayList<String> copySprnPlayers(ArrayList<String> items) {
-		for (int mm = 0; mm < sprinterPlayer.length; mm++) {
-			items.add(sprinterPlayer[mm].getAthleteName().toUpperCase());
-		}
-		return items;
-	}
-
-	private static ArrayList<String> copyCyclPlayers(ArrayList<String> items) {
-		for (int mm = 0; mm < cyclingPlayers.length; mm++) {
-			items.add(cyclingPlayers[mm].getAthleteName().toUpperCase());
-		}
-		return items;
-	}
-
-	private static ArrayList<String> copySwimPlayers(ArrayList<String> items) {
-		for (int mm = 0; mm < swimPlayers.length; mm++) {
-			items.add(swimPlayers[mm].getAthleteName().toUpperCase());
+	private static ArrayList<String> copySprnPlayers(ArrayList<String> items, Athletes[] athlte) {
+		for (int mm = 0; mm < athlte.length; mm++) {
+			items.add(athlte[mm].getAthleteName().toUpperCase());
 		}
 		return items;
 	}
 
 	public static void createGameID(String gameName) {
-		// String selectedGameID;
 		if (gameName == "Swimming") {
 			selectedGameID = "S" + swimmingGameCount.incrementAndGet();
 		}
@@ -442,19 +443,17 @@ public class Ozlympic {
 			selectedGameID = "R" + runningGameCount.incrementAndGet();
 		}
 		System.out.println("You have selected " + gameName + " game ID: " + selectedGameID);
-		athletesArrayList.add("Game ID: "+selectedGameID);
+		athletesArrayList.add("Game ID: " + selectedGameID);
 	}
 
 	public static String getSelectedGameID() {
-		// System.out.println(selectedGameID);
 		return selectedGameID;
 	}
 
-//	TODO
+	// TODO
 	// create game ID for each sport
 	public static boolean selectGame() {
 
-		// String selectedGame = null;
 		int option = 0;
 		do {
 			try {

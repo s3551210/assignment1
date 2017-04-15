@@ -1,0 +1,71 @@
+Important Notes to run this program probably :
+1- To start the game correctly:
+	1.1 From (Ozlympic Game) menu: select the first 
+		option then press enter.
+	1.2 Three sports would be displayed so you have to 
+		choose one of them by entering its number then
+		click enter.
+	1.3 The game would be registered and given an ID.
+
+2- After that, you can either predict who is going to 
+   	be the winner or you can skip it. If you would like
+   	to take part:
+   	2.1 Enter number 2 then press enter to see athletes.
+   	2.2 Player names will be listed so look at it and guess
+   	   who is the winner and type his name then click enter
+   	   so your thought has been stored.
+   	2.3 Note: It does not matter to use upper or lower case in
+   	   keyboard.
+
+3- Now you are ready to start the game so you can start it
+	
+   	by entering number 3 then click enter.
+   	3.1 The game has began directly and each competitor
+   		will get his finishing time. 
+   	3.2 Game ID, referee name and end time for all players
+   		will be displayed without a score or arrangement.
+   	3.3 when the game run, athletes will be displayed
+   		based on the lowest achieved time check regardless
+   		previous points. To display based on points see 
+   		below option (Display Final Results for All Games). 
+
+4- To see the final result for all games and check user
+	prediction select number 4 and click enter.
+	4.1 Here you can see all athletes results and who is
+		the first, second and third and so on.
+	4.2 if user prediction was correct, there will be a
+		congratulation message displayed.
+	4.3 Here the user will see the history of all games
+		and all these information will be stored in 
+		array list.
+
+5- Finally, it is possible to see all athletes' points
+	by entering number 5 then press enter.
+	5.1 here the game ID, referee, athlete ID, name and points
+		will be printed out.
+	5.2 Total points will be incremented from game to game
+		so the total points will be changed as long as the 
+		athlete got new points.
+
+6- By entering number 6, the program would be terminated 
+
+Important Notes:
+1. To start the game, you have to select one game first then you can start it.
+2. If a game was selected but not started, the user cannot choose another one until the previous game is started. 
+3. Starting two games at the same time is not possible at this stage.
+4. All errors were handled so any inconvenient typing will be handled probably.
+5. I assume that all games have only one referee.
+6. Sometimes, two or more athletes got the same finishing time so I keep it as it is because this is possible in real life.
+7. When game started, the athletes will be ordered based on achieved time to know who is the first and second and so on.
+8. The athletes order can be seen based on their total points from option number 4 for all games. 
+
+
+
+
+
+
+
+
+
+
+  

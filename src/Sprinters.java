@@ -1,6 +1,8 @@
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Sprinters extends Athletes {
+	public static final int MIN_TIME = 10;
+	public static final int MAX_TIME = 20;
 
 	public Sprinters(String ID, String name, int age, String state, int totalPoints, int timeAchieved) {
 		super(ID, name, age, state, totalPoints, timeAchieved);
@@ -8,24 +10,7 @@ public class Sprinters extends Athletes {
 
 	@Override
 	public int compete() {
-		return ThreadLocalRandom.current().nextInt(getMinTime(), getMaxTime() + 1);
-	}
-
-	@Override
-	public int getMinTime() {
-		MIN_TIME = 10;
-		return MIN_TIME;
-	}
-
-	@Override
-	public int getMaxTime() {
-		MAX_TIME = 20;
-		return MAX_TIME;
-	}
-
-	@Override
-	public String athleteID() {
-		return ID;
+		return ThreadLocalRandom.current().nextInt(MIN_TIME, MAX_TIME + 1);
 	}
 
 	@Override
@@ -40,7 +25,7 @@ public class Sprinters extends Athletes {
 
 	@Override
 	public int setTotalPoints(int point) {
-		totalPoints = getTotalPoints()+point;
+		totalPoints = getTotalPoints() + point;
 		return totalPoints;
 	}
 
