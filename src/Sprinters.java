@@ -1,3 +1,7 @@
+/**
+ * This class provides sprinters objects  
+ */
+
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Sprinters extends Athletes {

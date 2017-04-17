@@ -1,3 +1,6 @@
+/**
+ * This class provides Officials objects which inherited from Participants class  
+ */
 
 public abstract class Athletes extends Participations {
 

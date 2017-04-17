@@ -1,3 +1,6 @@
+/**
+ * This class is created for Participants for both: Athletes and officials. 
+ */
 
 public abstract class Participations {
 	

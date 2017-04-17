@@ -1,3 +1,7 @@
+/**
+ * This class provides Cyclists objects with their variables and methods  
+ */
+
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Cyclists extends Athletes {

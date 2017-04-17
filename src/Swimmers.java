@@ -1,3 +1,7 @@
+/**
+ * This class provides Swimmers objects with their variables and methods  
+ */
+
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Swimmers extends Athletes {
