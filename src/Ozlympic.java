@@ -4,8 +4,8 @@ import java.util.Scanner;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
- * This class is the main start-up class and provides all game 
- * functions and display results. 
+ * This class is the main start-up class and provides all game functions and
+ * display results.
  */
 public class Ozlympic {
 	private boolean isGamePlayed = false;
@@ -13,9 +13,6 @@ public class Ozlympic {
 	private final AtomicInteger cyclingGameCount = new AtomicInteger(0);
 	private final AtomicInteger runningGameCount = new AtomicInteger(0);
 	private String selectedGameID;
-	private int FIRST_PLACE = 5;
-	private int SECOND_PLACE = 2;
-	private int THIRD_PLACE = 1;
 	private int MIN_ATHLETES = 5;
 	private String userPredictionValue;
 	private boolean isGameSelected = false;
@@ -66,7 +63,7 @@ public class Ozlympic {
 		referee = new Officials("REF01", "Ryan Grant", 36, "NT");
 
 	}
-	
+
 	/** Display Main Screen */
 	protected void displayMainScreen() {
 		System.out.println();
@@ -80,7 +77,7 @@ public class Ozlympic {
 		System.out.println("-----------------------------------");
 		System.out.println("Enter an option: ");
 	}
-	
+
 	/** Create game ID for each sport */
 	protected boolean selectGame() {
 		int option = 0;
@@ -139,7 +136,7 @@ public class Ozlympic {
 		System.out.println("4- Cancel");
 		System.out.println("-----------------------------------");
 	}
-	
+
 	/** This function to generate new ID for each game */
 	private void createGameID(String gameName) {
 		if (gameName == "Swimming") {
@@ -155,8 +152,11 @@ public class Ozlympic {
 		athletesArrayList.add("Game ID: " + selectedGameID);
 	}
 
-	/** This function to get user prediction and check first if the entered name is matching
-	 * one of the athlete's name. Otherwise, there will be a warning message. */
+	/**
+	 * This function to get user prediction and check first if the entered name
+	 * is matching one of the athlete's name. Otherwise, there will be a warning
+	 * message.
+	 */
 	protected void predictWinner() {
 		// check selected game first to display its athletes
 		if (selectedGameID == null) {
@@ -246,19 +246,19 @@ public class Ozlympic {
 		return items;
 	}
 
-	/** Start the game is the main function in this program.
-	 * Each athlete will get randomly finishing time then they
-	 * will be sorted based on the lowest finishing time. At 
-	 * the end, they will get score. If the user has registered 
-	 * his thought for who might be the winner, it will be checked */
+	/**
+	 * Start the game is the main function in this program. Each athlete will
+	 * get randomly finishing time then they will be sorted based on the lowest
+	 * finishing time. At the end, they will get score. If the user has
+	 * registered his thought for who might be the winner, it will be checked
+	 */
 	protected void startGame() {
 
 		if (getSelectedGameID() == null) {
 			System.out.println("----------<(  WARNING  )>----------");
 			System.out.println("There is no game selected");
 		} else {
-			if ((swimPlayers.length < MIN_ATHLETES) 
-					|| (cyclingPlayers.length < MIN_ATHLETES)
+			if ((swimPlayers.length < MIN_ATHLETES) || (cyclingPlayers.length < MIN_ATHLETES)
 					|| (sprinterPlayer.length < MIN_ATHLETES)) {
 				System.out.println("----------<(  WARNING  )>----------");
 				System.out.println("Game canceled because the players \nmust be more than 4");
@@ -276,12 +276,15 @@ public class Ozlympic {
 		}
 
 	}
-	
+
 	private String getSelectedGameID() {
 		return selectedGameID;
 	}
 
-	/** Run the game after matching some validations from main function(startGame) */
+	/**
+	 * Run the game after matching some validations from main
+	 * function(startGame)
+	 */
 	private void runGame(String selectedGameID2) {
 		if (selectedGameID2.startsWith("S")) {
 			athleteCompete(swimPlayers);
@@ -295,118 +298,23 @@ public class Ozlympic {
 		isGamePlayed = true;
 	}
 
-	/** Run compete function for athletes and sort the result based on finishing time
-	 * then to be displayed directly. After that the result will be reformed based on
-	 * total point for each athlete the added to arrayList*/
+	/**
+	 * Run compete function for athletes and sort the result based on finishing
+	 * time then to be displayed directly. After that the result will be
+	 * reformed based on total point for each athlete the added to arrayList
+	 */
 	private void athleteCompete(Athletes[] athlete) {
 		for (int x = 0; x < athlete.length; x++) {
 			athlete[x].setTimeAchieved(athlete[x].compete());
 		}
-		arraySort(athlete);
-		displayAthletesArrangement(athlete);
-		sortAthletesBasedOnPoints(athlete);
+		referee.calculateFinishingTime(athlete);
+		referee.displayAthletesArrangement(athlete, userPredictionValue);
+		referee.sortAthletesBasedOnPoints(athlete, athletesArrayList);
 	}
 
-	/** After running compete function, sort the athlete based on finishing time.
-	 * This function is used only to display the final result for each game instantly */
-	private void arraySort(Athletes[] game) {
-		boolean swapped = true;
-		int j = 0;
-		Athletes[] tempArray = new Athletes[1];
-		while (swapped) {
-			swapped = false;
-			j++;
-			for (int i = 0; i < game.length - j; i++) {
-				if (game[i].timeAchieved > game[i + 1].timeAchieved) {
-					tempArray[0] = game[i];
-					game[i] = game[i + 1];
-					game[i + 1] = tempArray[0];
-					swapped = true;
-				}
-			}
-		}
-	}
-	
-	/** Sort athletes based on the running game and add there points for the top three
-	 * then display the result */
-	private void displayAthletesArrangement(Athletes[] athleteName) {
-		athleteName[0].setTotalPoints(FIRST_PLACE);
-		athleteName[1].setTotalPoints(SECOND_PLACE);
-		athleteName[2].setTotalPoints(THIRD_PLACE);
-
-		for (int x = 0; x < athleteName.length; x++) {
-			if (x == 0) {
-				checkUserPrediction(athleteName[x].getAthleteName());
-				System.out.println(athleteName[x].getAthleteName() 
-						+ "\t" + athleteName[x].getTimeAchieved() + " sec\t"
-						+ FIRST_PLACE + " Ponits");
-			} else if (x == 1) {
-				System.out.println(athleteName[x].getAthleteName() 
-						+ "\t" + athleteName[x].getTimeAchieved() + " sec\t"
-						+ SECOND_PLACE + " Ponits");
-			} else if (x == 2) {
-				System.out.println(athleteName[x].getAthleteName() 
-						+ "\t" + athleteName[x].getTimeAchieved() + " sec\t"
-						+ THIRD_PLACE + " Ponit");
-			} else
-				System.out.println(athleteName[x].getAthleteName() 
-						+ "\t" + athleteName[x].getTimeAchieved() + " sec\t"
-						+ "0" + " Ponit");
-		}
-	}
-	
-	/** Check user prediction and display congratulation message if correct. 
-	 * This function will return nothing for empty prediction */
-	private void checkUserPrediction(String athleteName) {
-		String firstWinner = athleteName.toUpperCase();
-		if (userPredictionValue != null) {
-			boolean userPrediction = new String(firstWinner).equals(userPredictionValue.toUpperCase());
-			if (userPrediction) {
-				System.out.println("Congratulations You got the right winner");
-				System.out.println("------<(  Congratulations  )>------");
-				System.out.println("----<( Your guessing correct )>----");
-			}
-		}
-		userPredictionValue = null;
-	}
-	
-	/** Sort athletes based on the highest total points and add the result to arrayList */
-	private void sortAthletesBasedOnPoints(Athletes[] athletesPoints) {
-		sortAthleteDescending(athletesPoints);
-		addToAthletesArrayList(athletesPoints);
-		athletesArrayList.add("Referee: " + referee.name);
-		athletesArrayList.add("-----------------------------------");
-	}
-
-	/** Sort athletes' arrays based on total points */
-	private void sortAthleteDescending(Athletes[] athletesPoints) {
-		boolean swapped = true;
-		int j = 0;
-		Athletes[] tempArray = new Athletes[1];
-		while (swapped) {
-			swapped = false;
-			j++;
-			for (int i = 0; i < athletesPoints.length - j; i++) {
-				if (athletesPoints[i].getTotalPoints() < athletesPoints[i + 1].getTotalPoints()) {
-					tempArray[0] = athletesPoints[i];
-					athletesPoints[i] = athletesPoints[i + 1];
-					athletesPoints[i + 1] = tempArray[0];
-					swapped = true;
-				}
-			}
-		}
-
-	}
-	
-	/** Store the game result in arrayList to be displayed when needed */
-	private void addToAthletesArrayList(Athletes[] athleteArrayList) {
-		for (int z = 0; z < athleteArrayList.length; z++) {
-			athletesArrayList.add(athleteArrayList[z].getID().concat("\t" + athleteArrayList[z].getAthleteName()
-					.concat("\t: " + String.valueOf(athleteArrayList[z].getTotalPoints()).concat(" Points"))));
-		}
-	}
-
-	/** Display the final result of all games including the name of the referee */
+	/**
+	 * Display the final result of all games including the name of the referee
+	 */
 	protected void displayFinalResultOfAllGames() {
 		if (getSelectedGameID() != null) {
 			System.out.println("----------<(  WARNING  )>----------");
@@ -417,7 +325,8 @@ public class Ozlympic {
 				System.out.println("No score at the moment");
 			} else {
 				System.out.println("=======(Display Final Result)======");
-				printGameResultArrayList();
+				referee.printGameResultArrayList(athletesArrayList);
+
 			}
 		}
 	}
@@ -431,24 +340,17 @@ public class Ozlympic {
 		}
 		return bool;
 	}
-	
-	/** Print the game result */
-	private void printGameResultArrayList() {
-		for (int i = 0; i < athletesArrayList.size(); i++) {
-			System.out.println(athletesArrayList.get(i));
-		}
-	}
-	
-	/** Display athletes' names and their points.
-	 * Before displaying the athletes' points the program should
-	 * check if there was a game has started already 
+
+	/**
+	 * Display athletes' names and their points. Before displaying the athletes'
+	 * points the program should check if there was a game has started already
 	 */
 	protected void displayAthletesPoins() {
 		if (isGamePlayed) {
 			System.out.println("*****(Display Athletes Points)*****");
-			printAthletesPoints(swimPlayers);
-			printAthletesPoints(cyclingPlayers);
-			printAthletesPoints(sprinterPlayer);
+			referee.printAthletesPoints(swimPlayers);
+			referee.printAthletesPoints(cyclingPlayers);
+			referee.printAthletesPoints(sprinterPlayer);
 			isGamePlayed = false;
 		} else {
 			System.out.println("----------<(  WARNING  )>----------");
@@ -456,21 +358,4 @@ public class Ozlympic {
 		}
 
 	}
-
-	/** Display athletes' names and their points */
-	private void printAthletesPoints(Athletes[] athletesPoints) {
-		sortAthleteDescending(athletesPoints);
-		int checkTotalPoint = 0;
-		for (int f = 0; f < athletesPoints.length; f++) {
-			checkTotalPoint += athletesPoints[f].getTotalPoints();
-		}
-
-		if (checkTotalPoint != 0) {
-			for (int e = 0; e < athletesPoints.length; e++) {
-				System.out.println(athletesPoints[e].getAthleteName() + "\t" + athletesPoints[e].getTotalPoints());
-			}
-			System.out.println("-----------------------------------");
-		}
-	}
-
 }
